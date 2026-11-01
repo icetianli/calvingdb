@@ -1,0 +1,46 @@
+name: calvingdb
+channels:
+  - pytorch
+  - conda-forge
+  - defaults
+
+dependencies:
+  - python=3.11
+
+  # Core scientific
+  - numpy
+  - pandas
+  - scipy
+  - scikit-image
+
+  # Geospatial stack
+  - geopandas
+  - shapely
+  - pyproj
+  - rasterio
+  - rioxarray
+  - xarray
+  - cartopy
+
+  # Data storage
+  - zarr
+  - pyarrow           # for parquet I/O
+
+  # Visualisation
+  - matplotlib
+
+  # Utilities
+  - tqdm
+  - pyyaml
+
+  # Deep learning (CPU-only PyTorch)
+  - pytorch
+  - torchvision
+
+  # Tensorboard (for SummaryWriter in train.py)
+  - pip:
+    - tensorboard
+
+  # Install the package itself in editable mode
+  - pip:
+    - -e .

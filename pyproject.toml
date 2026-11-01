@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=61", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "calvingdb"
+version = "0.1.0"
+requires-python = ">=3.9"
+
+[tool.setuptools]
+py-modules = ["losses", "metrics", "train", "evaluate", "utils"]
+
+[tool.setuptools.packages.find]
+where = ["."]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+addopts = "--import-mode=importlib"

@@ -1,0 +1,69 @@
+# ── Editor / IDE ──────────────────────────────────────────────────────────────
+# VSCode Local History snapshots earlier versions of files and can resurrect
+# pre-sanitisation content (absolute paths, names). Never commit it.
+.history/
+.vscode/
+.idea/
+*.swp
+*~
+
+# ── Python ────────────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.egg-info/
+*.egg
+build/
+dist/
+.eggs/
+.pytest_cache/
+.mypy_cache/
+.ipynb_checkpoints/
+
+# ── Environments ──────────────────────────────────────────────────────────────
+.venv/
+venv/
+env/
+.env
+.python-version
+
+# ── Data ──────────────────────────────────────────────────────────────────────
+# Generated artefacts only — the directory structure is kept via .gitkeep.
+data/raw/*
+data/processed/*
+data/splits/*
+!data/**/.gitkeep
+
+# Dataset formats, wherever they land
+*.zarr/
+*.parquet
+*.tif
+*.tiff
+*.gpkg
+*.shp
+*.dbf
+*.shx
+*.prj
+*.nc
+*.h5
+*.hdf5
+*.npy
+*.npz
+
+# ── Experiment outputs ────────────────────────────────────────────────────────
+experiments/
+checkpoints/
+logs/
+runs/
+outputs/
+*.pt
+*.pth
+*.ckpt
+
+# ── Logging services ──────────────────────────────────────────────────────────
+wandb/
+lightning_logs/
+events.out.tfevents.*
+
+# ── OS ────────────────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db

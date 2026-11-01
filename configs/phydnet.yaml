@@ -1,0 +1,62 @@
+# configs/phydnet.yaml
+
+data:
+  splits_dir:    "/path/to/calvdb/TrainingDataset_processed/splits"
+  stats_path:    "/path/to/calvdb/TrainingDataset_processed/splits/normalisation_stats.json"
+  modalities:    ["sdt", "imagery", "geophys", "climate"]
+  batch_size:    4
+  num_workers:   4
+  pin_memory:    true
+  augment_train: true
+
+model:
+  name:          "CalvingPhyDNet"
+  base_channels: 32            # encoder width; phy_ch = app_ch = base_channels
+  K:             5             # number of input time steps
+  C_total:       12            # 1 SDT + 1 SDT_diff + 5 imagery + 5 geophys
+  climate_dim:   10            # K × D_c = 5 × 2
+  tau_dim:       20            # K × 4 = 5 × 4
+  num_layers:    1             # single PhyCell + AppCell pair
+  n_moments:     4             # number of PDE Taylor-expansion operators
+  moment_kernel: 7             # spatial kernel size for moment operators
+
+loss:
+  decay_pixels: 10.0  # exponential decay in pixels; 10px × 30m = 300m half-power
+  min_weight:   0.0   # weight floor for far-field pixels
+
+prediction:
+  mode:              "displacement"     # model predicts SDT change, not absolute SDT
+  displacement_from: "t_minus_30"       # anchor index 4 — most recent input
+  reconstruction:    "add_last_input"   # pred_abs = pred_disp + last_input_sdt
+  trend_as_input:    false              # intentionally excluded for transferability
+
+optimiser:
+  name:          "AdamW"
+  lr:            1.0e-4
+  weight_decay:  1.0e-3
+  betas:         [0.9, 0.999]
+
+scheduler:
+  name:          "CosineAnnealingLR"
+  T_max:         200            # epochs
+  eta_min:       1.0e-6
+
+training:
+  n_epochs:      200
+  val_every:     5              # validate every N epochs
+  save_every:    10             # checkpoint every N epochs
+  early_stopping_patience: 30  # 30 val evals × 5 = 150 epochs max
+  grad_clip_norm: 1.0
+  mixed_precision: true
+
+paths:
+  checkpoint_dir: "experiments/exp21_phydnet/checkpoints/"
+  log_dir:        "experiments/exp21_phydnet/logs/"
+
+wandb:
+  enabled:  true
+  project:  "calvingdb"
+  entity:   null
+  run_name: "phydnet-exp21"
+  tags:     ["phydnet-exp21"]
+  notes:    "tau/climate per-timestep injection + sdt_diff + decay_pixels=10 + augment v+h flip"
