@@ -196,8 +196,7 @@ Dataset version: **0.1.0**.
   title        = {CalvingDB: A Multi-Modal Benchmark for Marine-Terminating
                   Glacier Calving Prediction in Svalbard},
   author       = {Li, Tian and Steidl, Viola and Xiong, Zhitong
-                  and Zhu, Xiao Xiang and Mitcham, Tom and Cornford, Stephen
-                  and Bamber, Jonathan},
+                  and Zhu, Xiao Xiang and Mitcham, Tom and Bamber, Jonathan},
   year         = {2026},
   note         = {Manuscript under review}
 }
